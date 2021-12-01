@@ -3,24 +3,21 @@ import collections
 
 
 def main():
-    increased = -1
+    increased = 0
     q = collections.deque(3 * [0], 3)
-    q_prev = collections.deque(3 * [0], 3)
+    q_prev = collections.deque(3 * [9999], 3)
     with open('input') as f:
         for line in f:
             depth = int(line.strip())
             q.append(depth)
-            if q.count(0) > 0:
-                pass
+            if sum(q) > sum(q_prev):
+                increased += 1
+                print(f'{sum(q)} (increased)')
             else:
-                if sum(q) > sum(q_prev):
-                    increased = increased + 1
-                    print(f'{sum(q)} (increased)')
-                else:
-                    print(f'{sum(q)}')
-            q_prev = q.copy()
+                print(f'{sum(q)}')
+            q_prev.append(depth)
 
-    print(f'Total: {increased}')
+    print(f'Answer: {increased}')
 
 
 if __name__ == "__main__":
